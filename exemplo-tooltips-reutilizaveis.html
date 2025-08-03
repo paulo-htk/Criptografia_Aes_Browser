@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Tooltips Reutilizáveis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .demo-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .demo-title {
+            color: #2196F3;
+            border-bottom: 2px solid #2196F3;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .demo-field {
+            margin: 15px 0;
+        }
+        
+        .demo-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .demo-field input, .demo-field textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        .config-section {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        
+        /* Importar estilos de tooltip */
+        .tooltip {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            max-width: 300px;
+            word-wrap: break-word;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .tooltip--visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            border: 6px solid transparent;
+        }
+
+        .tooltip[data-position="top"]::before {
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .tooltip[data-position="bottom"]::before {
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .tooltip[data-position="left"]::before {
+            top: 50%;
+            left: 100%;
+            transform: translateY(-50%);
+            border-left-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .tooltip[data-position="right"]::before {
+            top: 50%;
+            right: 100%;
+            transform: translateY(-50%);
+            border-right-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .tooltip b {
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        label[data-title] {
+            cursor: help;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        label[data-title]:hover {
+            color: #2196F3;
+        }
+
+        label[data-title]::after {
+            content: ' ℹ️';
+            opacity: 0.6;
+            font-size: 0.8em;
+            transition: opacity 0.2s ease;
+        }
+
+        label[data-title]:hover::after {
+            opacity: 1;
+        }
+        
+        /* Tooltip customizado para demo */
+        .custom-tooltip {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: 2px solid white;
+        }
+        
+        .custom-tooltip b {
+            color: #ffeb3b;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Demo: Sistema de Tooltips Reutilizável</h1>
+    <p>Demonstração prática de como usar o sistema de tooltips em outros projetos.</p>
+    
+    <!-- Demo 1: Formulário Básico -->
+    <div class="demo-section">
+        <h2 class="demo-title">1. Formulário com Tooltips Padrão</h2>
+        
+        <div class="demo-field">
+            <label for="nome" data-title="Digite seu nome completo.<br>Este campo é <b>obrigatório</b>.">
+                Nome Completo
+            </label>
+            <input type="text" id="nome" placeholder="Ex: João Silva">
+        </div>
+        
+        <div class="demo-field">
+            <label for="email" data-title="Insira um email válido.<br>Será usado para <b>contato</b> e <b>recuperação de senha</b>.">
+                Email
+            </label>
+            <input type="email" id="email" placeholder="Ex: joao@email.com">
+        </div>
+        
+        <div class="demo-field">
+            <label for="senha" data-title="A senha deve ter:<br>• Mínimo <b>8 caracteres</b><br>• Pelo menos <b>1 número</b><br>• Pelo menos <b>1 letra maiúscula</b>">
+                Senha
+            </label>
+            <input type="password" id="senha" placeholder="Digite uma senha segura">
+        </div>
+    </div>
+    
+    <!-- Demo 2: Configuração Customizada -->
+    <div class="demo-section">
+        <h2 class="demo-title">2. Tooltips com Configuração Customizada</h2>
+        
+        <div class="config-section">
+            <strong>Configurações Ativas:</strong><br>
+            • Posição: Right<br>
+            • Delay: 200ms<br>
+            • Classe: custom-tooltip<br>
+            • HTML: Habilitado
+        </div>
+        
+        <div class="demo-field">
+            <label class="custom-label" data-title="Campo com tooltip <b>customizado</b>.<br>Posicionado à <b>direita</b> com estilo diferente.">
+                Campo Customizado
+            </label>
+            <input type="text" placeholder="Hover no label para ver tooltip customizado">
+        </div>
+        
+        <button onclick="testarTooltipProgramatico()">Mostrar Tooltip Programático</button>
+    </div>
+    
+    <!-- Demo 3: Diferentes Posições -->
+    <div class="demo-section">
+        <h2 class="demo-title">3. Diferentes Posições de Tooltip</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 40px 0;">
+            <div style="text-align: center;">
+                <label data-title="Tooltip posicionado no <b>topo</b>">
+                    <button>Tooltip Top</button>
+                </label>
+            </div>
+            
+            <div style="text-align: center;">
+                <label data-title="Tooltip posicionado na <b>direita</b>">
+                    <button>Tooltip Right</button>
+                </label>
+            </div>
+            
+            <div style="text-align: center;">
+                <label data-title="Tooltip posicionado em <b>baixo</b>">
+                    <button>Tooltip Bottom</button>
+                </label>
+            </div>
+            
+            <div style="text-align: center;">
+                <label data-title="Tooltip posicionado na <b>esquerda</b>">
+                    <button>Tooltip Left</button>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Demo 4: Conteúdo Complexo -->
+    <div class="demo-section">
+        <h2 class="demo-title">4. Tooltips com Conteúdo Complexo</h2>
+        
+        <div class="demo-field">
+            <label data-title="<b>Instruções detalhadas:</b><br><br>1. Preencha todos os campos<br>2. Verifique os dados<br>3. Clique em <b>Enviar</b><br><br><i>Dica: Use Tab para navegar</i>">
+                Instruções Complexas
+            </label>
+            <textarea placeholder="Campo com tooltip complexo..." rows="3"></textarea>
+        </div>
+    </div>
+
+    <script type="module">
+        // Simulação da importação do UIManager
+        // Em um projeto real, você faria:
+        // import { UIManager } from './dist/ui/UIManager.js';
+        
+        // Classe simplificada para demonstração
+        class SimpleTooltipManager {
+            constructor(config = {}) {
+                this.config = {
+                    baseClass: 'tooltip',
+                    showDelay: 500,
+                    hideDelay: 100,
+                    position: 'auto',
+                    offset: 8,
+                    allowHtml: true,
+                    ...config
+                };
+                this.tooltipElement = null;
+                this.initializeTooltips();
+            }
+            
+            initializeTooltips() {
+                document.querySelectorAll('[data-title]').forEach(element => {
+                    this.setupTooltipEvents(element);
+                });
+            }
+            
+            setupTooltipEvents(element) {
+                let showTimeout = null;
+                let hideTimeout = null;
+
+                const showTooltip = () => {
+                    if (hideTimeout) {
+                        clearTimeout(hideTimeout);
+                        hideTimeout = null;
+                    }
+                    
+                    showTimeout = setTimeout(() => {
+                        const content = element.getAttribute('data-title');
+                        if (content) {
+                            this.showTooltip(element, content);
+                        }
+                    }, this.config.showDelay);
+                };
+
+                const hideTooltip = () => {
+                    if (showTimeout) {
+                        clearTimeout(showTimeout);
+                        showTimeout = null;
+                    }
+                    
+                    hideTimeout = setTimeout(() => {
+                        this.hideTooltip();
+                    }, this.config.hideDelay);
+                };
+
+                element.addEventListener('mouseenter', showTooltip);
+                element.addEventListener('mouseleave', hideTooltip);
+                element.addEventListener('focus', showTooltip);
+                element.addEventListener('blur', hideTooltip);
+            }
+            
+            showTooltip(element, content, position = this.config.position) {
+                this.hideTooltip();
+
+                this.tooltipElement = document.createElement('div');
+                this.tooltipElement.className = `${this.config.baseClass} ${this.config.baseClass}--visible`;
+                
+                if (this.config.allowHtml) {
+                    this.tooltipElement.innerHTML = content;
+                } else {
+                    this.tooltipElement.textContent = content;
+                }
+
+                document.body.appendChild(this.tooltipElement);
+                this.positionTooltip(element, position);
+            }
+            
+            positionTooltip(element, preferredPosition) {
+                if (!this.tooltipElement) return;
+
+                const rect = element.getBoundingClientRect();
+                const tooltipRect = this.tooltipElement.getBoundingClientRect();
+                const offset = this.config.offset;
+
+                let position = preferredPosition;
+                let top = 0;
+                let left = 0;
+
+                // Auto-posicionamento
+                if (position === 'auto') {
+                    const spaceTop = rect.top;
+                    const spaceBottom = window.innerHeight - rect.bottom;
+                    
+                    position = spaceTop > spaceBottom ? 'top' : 'bottom';
+                }
+
+                switch (position) {
+                    case 'top':
+                        top = rect.top - tooltipRect.height - offset;
+                        left = rect.left + (rect.width - tooltipRect.width) / 2;
+                        this.tooltipElement.setAttribute('data-position', 'top');
+                        break;
+                    case 'bottom':
+                        top = rect.bottom + offset;
+                        left = rect.left + (rect.width - tooltipRect.width) / 2;
+                        this.tooltipElement.setAttribute('data-position', 'bottom');
+                        break;
+                    case 'left':
+                        top = rect.top + (rect.height - tooltipRect.height) / 2;
+                        left = rect.left - tooltipRect.width - offset;
+                        this.tooltipElement.setAttribute('data-position', 'left');
+                        break;
+                    case 'right':
+                        top = rect.top + (rect.height - tooltipRect.height) / 2;
+                        left = rect.right + offset;
+                        this.tooltipElement.setAttribute('data-position', 'right');
+                        break;
+                }
+
+                // Ajustar para viewport
+                left = Math.max(offset, Math.min(left, window.innerWidth - tooltipRect.width - offset));
+                top = Math.max(offset, Math.min(top, window.innerHeight - tooltipRect.height - offset));
+
+                this.tooltipElement.style.position = 'fixed';
+                this.tooltipElement.style.top = `${top + window.scrollY}px`;
+                this.tooltipElement.style.left = `${left + window.scrollX}px`;
+                this.tooltipElement.style.zIndex = '10000';
+            }
+            
+            hideTooltip() {
+                if (this.tooltipElement) {
+                    this.tooltipElement.remove();
+                    this.tooltipElement = null;
+                }
+            }
+        }
+        
+        // Inicializar tooltips padrão
+        const tooltipManager = new SimpleTooltipManager();
+        
+        // Inicializar tooltips customizados
+        const customTooltipManager = new SimpleTooltipManager({
+            baseClass: 'custom-tooltip',
+            showDelay: 200,
+            position: 'right'
+        });
+        
+        // Aplicar tooltips customizados aos elementos específicos
+        document.querySelectorAll('.custom-label').forEach(element => {
+            element.removeEventListener('mouseenter', () => {});
+            customTooltipManager.setupTooltipEvents(element);
+        });
+        
+        // Função para tooltip programático
+        window.testarTooltipProgramatico = function() {
+            const button = event.target;
+            tooltipManager.showTooltip(button, 'Este é um tooltip <b>programático</b>!<br>Criado via JavaScript.', 'top');
+            
+            setTimeout(() => {
+                tooltipManager.hideTooltip();
+            }, 3000);
+        };
+        
+        console.log('🎉 Demo de tooltips carregada com sucesso!');
+        console.log('📖 Veja o código-fonte para exemplos de implementação.');
+    </script>
+</body>
+</html>

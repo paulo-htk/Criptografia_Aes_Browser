@@ -1,0 +1,323 @@
+:root {
+	--text: #000;
+	--back: #f1f1f1;
+
+	--input-text-color: #10d;
+	--input-back-color: #fff;
+
+	--button-text-color: #fff;
+	--button-back-color: #16e;
+
+	--header-text-color: #000;
+	--header-back-color: #e7e7e7;
+	
+	--footer-text-color: #817;
+	--footer-back-color: #e7e7e7;
+}
+
+html,
+body {
+	font-family: Roboto, sans-serif;
+	color: var(--text);
+	background: var(--back);
+	min-height: 100vh;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+header {
+	color: var(--header-text-color);
+	background: var(--header-back-color);
+	padding: 3rem 0;
+}
+main {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	width: 100%;
+}
+
+main, footer {
+	padding: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-weight: 400;
+	line-height: 1rem;
+	margin: 2rem 0;
+	padding: 0;
+}
+
+input,
+.content-editable,
+button {
+	padding: 0.5rem;
+	border: none;
+	outline: none;
+	font-size: 1rem;
+}
+
+button {
+	min-width: 8rem;
+	cursor: pointer;
+	color: var(--button-text-color);
+	background: var(--button-back-color, #0099ff);
+	box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+	transition: box-shadow ease-in-out 0.3s;
+}
+
+button:hover {
+	box-shadow: 0 0 10px rgb(255 255 255 / 100%);
+}
+
+input {
+	font-family: ui-monospace, monospace;
+	color: var(--input-text-color);
+	background: var(--input-back-color);
+	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2) inset;
+}
+
+label {
+	font-size: 0.9rem;
+	color: #333;
+	margin-bottom: 0.5rem;
+}
+
+/* Estilos para elementos contenteditable */
+.content-editable {
+	font-family: ui-monospace, monospace;
+	color: var(--input-text-color);
+	background: var(--input-back-color);
+	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2) inset;
+	padding: 0.5rem;
+	border: none;
+	outline: none;
+	/* min-height: 2rem; */
+	overflow-y: auto;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	resize: vertical;
+}
+
+.content-editable:focus {
+	box-shadow: 0 0 0 2px var(--button-back-color), 1px 1px 4px rgba(0, 0, 0, 0.2) inset;
+}
+
+/* Placeholder para contenteditable */
+.content-editable:empty::before {
+	content: attr(data-placeholder);
+	color: #999;
+	font-style: italic;
+	pointer-events: none;
+}
+
+.container {
+	margin: auto;
+	max-width: 600px;
+	min-width: 400px;
+	width: 100%;
+}
+
+section {
+	display: flex;
+	margin: 2rem 0;
+	flex-direction: column;
+}
+
+section.title {
+	margin: 0;
+}
+
+section.title h1 {
+	margin: 0 0 1rem 0;
+	color: var(--input-text-color);
+	font-weight: bold;
+}
+
+section.title p {
+	opacity: 0.5;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 1rem;
+}
+
+.form-input {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-input p {
+	margin: 0.5rem 0 0 0;
+	text-align: end;
+	font-size: 0.9rem;
+	font-style: italic;
+	color: #aaa;
+	user-select: none;
+	cursor: help;
+}
+
+.form-input p:hover {
+	color: #b00;
+}
+
+.control {
+	display: flex;
+	justify-content: flex-end;
+	gap: 1rem;
+	flex-wrap: wrap;
+	margin: 2rem 0 0 0;
+}
+
+/* Estilos para o sistema de mensagens */
+.report {
+	margin: 6rem 0;
+	min-height: 0;
+	position: fixed;
+	inset: 0 auto auto auto;
+	z-index: 2000;
+}
+
+.message {
+	margin: 0.5rem 0;
+	padding: 0.75rem;
+	border-radius: 4px;
+	border-left: 4px solid;
+	background-color: rgba(255, 255, 255, 0.8);
+	font-size: 0.9rem;
+	line-height: 1.4;
+	transition: opacity 300ms ease-in-out;
+}
+
+.message.info {
+	border-left-color: #2196F3;
+	color: #1976D2;
+	background-color: rgb(227 231 234);
+}
+
+.message.success {
+	border-left-color: #4CAF50;
+	color: #2E7D32;
+	background-color: rgb(229 237 229);
+}
+
+.message.error {
+	border-left-color: #F44336;
+	color: #C62828;
+	background-color: rgb(236 227 227);
+}
+
+/* Estilos para sistema de tooltips */
+.tooltip {
+	position: fixed;
+	background: rgba(0, 0, 0, 0.9);
+	color: white;
+	padding: 8px 12px;
+	border-radius: 6px;
+	font-size: 0.85rem;
+	line-height: 1.4;
+	max-width: 300px;
+	word-wrap: break-word;
+	z-index: 10000;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tooltip--visible {
+	opacity: 1;
+	visibility: visible;
+}
+
+/* Setas dos tooltips baseadas na posição */
+.tooltip::before {
+	content: '';
+	position: absolute;
+	border: 6px solid transparent;
+}
+
+.tooltip[data-position="top"]::before {
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+.tooltip[data-position="bottom"]::before {
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	border-bottom-color: rgba(0, 0, 0, 0.9);
+}
+
+.tooltip[data-position="left"]::before {
+	top: 50%;
+	left: 100%;
+	transform: translateY(-50%);
+	border-left-color: rgba(0, 0, 0, 0.9);
+}
+
+.tooltip[data-position="right"]::before {
+	top: 50%;
+	right: 100%;
+	transform: translateY(-50%);
+	border-right-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Estilo especial para tooltips com HTML */
+.tooltip b {
+	color: #ffd700;
+	font-weight: 600;
+}
+
+.tooltip br {
+	line-height: 1.6;
+}
+
+/* Hover effect nos labels com tooltips */
+label[data-title] {
+	cursor: help;
+	position: relative;
+	transition: color 0.2s ease;
+}
+
+label[data-title]:hover {
+	color: var(--button-back-color, #16e);
+}
+
+/* Indicador visual para elementos com tooltip */
+label[data-title]::after {
+	content: ' 🔍';
+	opacity: 0.6;
+	font-size: 0.8em;
+	transition: opacity 0.2s ease;
+}
+
+label[data-title]:hover::after {
+	opacity: 1;
+}
+
+footer {
+	background: var(--footer-back-color);
+	color: var(--footer-text-color);
+}
+
+footer section {
+	margin: 1rem 0;
+}

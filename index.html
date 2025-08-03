@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Crypto AES em Javascript no Navegador</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<script type="module" src="/dist/main.js" defer></script>
+</head>
+
+<body>
+	<!-- Header Section -->
+	<header>
+		<div class="container">
+			<!-- Report Section -->
+			<div id="report" class="report"></div>
+
+			<!-- Title Section -->
+			<section class="title">
+				<h1>Crypto AES em Javascript no Navegador</h1>
+				<p>Este é um exemplo simples de uso da Crypto API para criptografia e descriptografia AES.</p>
+			</section>
+		</div>
+	</header>
+
+	<main>
+		<div class="container">
+			<!-- Input Section -->
+			<section class="form">
+				<div class="form-input">
+					<label for="aesKey" data-title="Insira uma chave AES de 16, 24 ou 32 bytes">Chave AES</label>
+					<input type="text" id="aesKey" placeholder="Chave AES" />
+				</div>
+
+				<div class="form-input">
+					<label for="iv" data-title="Insira um vetor de inicialização (IV) de 16 bytes">Vetor de Inicialização -
+						IV</label>
+					<input type="text" id="iv" placeholder="IV" />
+				</div>
+			</section>
+
+			<!-- Encryption/Decryption Section -->
+			<section class="form">
+				<div class="form-input">
+					<label for="encryptInput"
+						data-title="Insira o conteúdo a ser <b>decriptado</b>.<br>Aqui também aparecerá o <b>resultado</b> da decriptação.">Conteúdo
+						Decriptado</label>
+					<div id="encryptInput" class="content-editable" contenteditable="true"
+						data-placeholder="Conteúdo a ser encriptado..."></div>
+				</div>
+
+				<div class="form-input">
+					<label for="decryptInput"
+						data-title="Insira o conteúdo a ser <b>encriptado</b>.<br>Aqui também aparecerá o <b>resultado</b> da encriptação.">Conteúdo
+						Encriptado</label>
+					<div id="decryptInput" class="content-editable" contenteditable="true"
+						data-placeholder="Conteúdo a ser decriptado..."></div>
+				</div>
+
+				<div class="control">
+					<button id="generateKey">Gerar Chaves</button>
+					<button id="encryptButton">Encriptar</button>
+					<button id="decryptButton">Decriptar</button>
+				</div>
+			</section>
+		</div> <!-- Fim da div.container -->
+	</main>
+
+	<!-- Footer Section -->
+	<footer>
+		<div class="container">
+			<section>
+				<p><b>Atenção</b>: quando acionar a Encriptação, o resultado será escrito na caixa de texto de Decriptação,
+					apagando os dados anteriores. O mesmo acontece com a Decriptação.</p>
+			</section>
+
+			<section>
+				<p>Desenvolvido por <a href="https://paulobr.com">Bill Rocha</a></p>
+				<p>Se quiser, pode contribuir com este <a href="https://github.com/your-repo">projeto de código aberto</a> no
+					Github.</p>
+			</section>
+		</div>
+	</footer>
+</body>
+
+</html>
